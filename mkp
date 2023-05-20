@@ -1,0 +1,43 @@
+#!/bin/sh
+
+nr_of_args_passed_to_this_script=$#
+if [ $nr_of_args_passed_to_this_script -ne 1 ]; then
+    echo "Please specify exactly one argument to the \`mkp\` command, i.e. the name of the project."
+    exit
+fi
+
+PROJECT_NAME="$1"
+if [[ "$PROJECT_NAME" != *"." ]]; then 
+    echo "Project name should end with \".\""
+    exit
+fi
+
+PATH_TO_DIR=~/org/Projects/All/$PROJECT_NAME
+PATH_TO_ORG=~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org
+
+LINK_1="[[$PATH_TO_DIR][.]]"
+LINK_2="[[$PATH_TO_ORG][o]]"
+NEW="** PROJ $LINK_1 $LINK_2 $PROJECT_NAME"
+
+FROM="* Inbox"
+TO="* Inbox\\\n$NEW"
+
+FROM=$(echo "$FROM" | sed 's;/;\\/;g')
+TO=$(echo "$TO" | sed 's;/;\\/;g')
+PATTERN="s/$FROM/$TO/g"
+
+FILE_NAME=~/org/Index.org
+FILE_NAME=$(realpath $FILE_NAME)
+
+sed -i'' -e "$PATTERN" "$FILE_NAME"
+
+if [ ! -d "$PATH_TO_DIR" ]; then
+    mkdir -p "$PATH_TO_DIR"
+    echo "Created direcotory at \`$PATH_TO_DIR\`"
+fi
+
+TEMPLATE="#+title: $PROJECT_NAME"
+if [ ! -f "$PATH_TO_ORG" ]; then
+    echo "$TEMPLATE" > "$PATH_TO_ORG"
+    echo "Created org-file at \`$PATH_TO_ORG\`"
+fi
