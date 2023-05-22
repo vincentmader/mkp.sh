@@ -1,41 +1,55 @@
 #!/bin/sh
 
+# Make sure that exactly one argument is passed to this script. Else: Exit.
+# ─────────────────────────────────────────────────────────────────────────────
 nr_of_args_passed_to_this_script=$#
 if [ $nr_of_args_passed_to_this_script -ne 1 ]; then
     echo "Please specify exactly one argument to the \`mkp\` command, i.e. the name of the project."
     exit
 fi
 
+# Make sure that the passed project name ends in "." (-> just a convention).
+# ─────────────────────────────────────────────────────────────────────────────
 PROJECT_NAME="$1"
 if [[ "$PROJECT_NAME" != *"." ]]; then 
-    echo "Project name should end with \".\""
+    echo "Project name should end in \".\""
     exit
 fi
 
+# Define paths that shall be created for the project.
+# ─────────────────────────────────────────────────────────────────────────────
 PATH_TO_DIR=~/org/Projects/All/$PROJECT_NAME
 PATH_TO_ORG=~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org
 
+# Define path of org-file that shall be written into.
+# ─────────────────────────────────────────────────────────────────────────────
+FILE_NAME=~/org/Index.org
+FILE_NAME=$(realpath $FILE_NAME)
+
+# Define text that shall be added to the org-file.
+# ─────────────────────────────────────────────────────────────────────────────
 LINK_1="[[$PATH_TO_DIR][.]]"
 LINK_2="[[$PATH_TO_ORG][o]]"
 NEW="** PROJ $LINK_1 $LINK_2 $PROJECT_NAME"
-
 FROM="* Inbox"
 TO="* Inbox\\\n$NEW"
-
 FROM=$(echo "$FROM" | sed 's;/;\\/;g')
 TO=$(echo "$TO" | sed 's;/;\\/;g')
 PATTERN="s/$FROM/$TO/g"
 
-FILE_NAME=~/org/Index.org
-FILE_NAME=$(realpath $FILE_NAME)
-
+# Write to org-file.
+# ─────────────────────────────────────────────────────────────────────────────
 sed -i'' -e "$PATTERN" "$FILE_NAME"
 
+# Create project directory.
+# ─────────────────────────────────────────────────────────────────────────────
 if [ ! -d "$PATH_TO_DIR" ]; then
     mkdir -p "$PATH_TO_DIR"
-    echo "Created direcotory at \`$PATH_TO_DIR\`"
+    echo "Created directory at \`$PATH_TO_DIR\`"
 fi
 
+# Create project org-file.
+# ─────────────────────────────────────────────────────────────────────────────
 TEMPLATE="#+title: $PROJECT_NAME"
 if [ ! -f "$PATH_TO_ORG" ]; then
     echo "$TEMPLATE" > "$PATH_TO_ORG"
