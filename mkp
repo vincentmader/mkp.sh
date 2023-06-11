@@ -10,11 +10,11 @@ fi
 
 # Make sure that the passed project name ends in "." (-> just a convention).
 # ─────────────────────────────────────────────────────────────────────────────
-PROJECT_NAME="$1"
-if [[ "$PROJECT_NAME" != *"." ]]; then 
-    echo "Project name should end in \".\""
-    exit
-fi
+# PROJECT_NAME="$1"
+# if [[ "$PROJECT_NAME" != *"." ]]; then 
+#     echo "Project name should end in \".\""
+#     exit
+# fi
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
