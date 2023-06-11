@@ -15,15 +15,19 @@ if [[ "$PROJECT_NAME" != *"." ]]; then
     echo "Project name should end in \".\""
     exit
 fi
+# Create POSIX-compatible project id for directory name.
+PROJECT_ID=$(echo "$PROJECT_NAME" | awk '{print tolower($0)}') # -> Lowercase.
+PROJECT_ID=$(echo "$PROJECT_ID" | sed 's/.$//')                # -> Remove dot.
+PROJECT_ID=$(echo "$PROJECT_ID" | tr " " "_")                  # -> No spaces.
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
-PATH_TO_DIR="./$PROJECT_NAME"
-PATH_TO_ORG="~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org"
+PATH_TO_DIR="./$PROJECT_ID"
+PATH_TO_ORG="./$PROJECT_ID/${PROJECT_NAME}org"
 
 # Define path of org-file that shall be written into.
 # ─────────────────────────────────────────────────────────────────────────────
-FILE_NAME="~/org/Index.org"
+FILE_NAME="$HOME/org/Index.org"
 FILE_NAME=$(realpath $FILE_NAME)
 
 # Define text that shall be added to the org-file.
@@ -31,8 +35,8 @@ FILE_NAME=$(realpath $FILE_NAME)
 LINK_1="[[$PATH_TO_DIR][.]]"
 LINK_2="[[$PATH_TO_ORG][o]]"
 NEW="** PROJ $LINK_1 $LINK_2 $PROJECT_NAME"
-FROM="* [[~/org/0_inbox][Inbox]]"
-TO="* [[~/org/0_inbox][Inbox]]\\\n$NEW"
+FROM="* \[\[~/org/0_inbox\]\[Inbox\]\]"
+TO="$FROM\\\n$NEW"
 FROM=$(echo "$FROM" | sed 's;/;\\/;g')
 TO=$(echo "$TO" | sed 's;/;\\/;g')
 PATTERN="s/$FROM/$TO/g"
@@ -40,6 +44,7 @@ PATTERN="s/$FROM/$TO/g"
 # Write to org-file.
 # ─────────────────────────────────────────────────────────────────────────────
 sed -i'' -e "$PATTERN" "$FILE_NAME"
+echo "Wrote to org index."
 
 # Create project directory.
 # ─────────────────────────────────────────────────────────────────────────────
