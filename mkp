@@ -22,16 +22,8 @@ PROJECT_ID=$(echo "$PROJECT_ID" | tr " " "_")                  # -> No spaces.
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
-<<<<<<< HEAD
 PATH_TO_DIR="./$PROJECT_ID"
 PATH_TO_ORG="./$PROJECT_ID/${PROJECT_NAME}org"
-||||||| d8ce937 (changed directory path where project shall be created in)
-PATH_TO_DIR=./$PROJECT_NAME
-PATH_TO_ORG=~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org
-=======
-PATH_TO_DIR=~/org/Projects/All/$PROJECT_NAME
-PATH_TO_ORG=~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org
->>>>>>> parent of d8ce937 (changed directory path where project shall be created in)
 
 # Define path of org-file that shall be written into.
 # ─────────────────────────────────────────────────────────────────────────────
