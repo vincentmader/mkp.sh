@@ -18,7 +18,7 @@ fi
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
-PATH_TO_DIR=~/org/Projects/All/$PROJECT_NAME
+PATH_TO_DIR=./$PROJECT_NAME
 PATH_TO_ORG=~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org
 
 # Define path of org-file that shall be written into.
