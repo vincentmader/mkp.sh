@@ -18,12 +18,12 @@ fi
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
-PATH_TO_DIR=./$PROJECT_NAME
-PATH_TO_ORG=~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org
+PATH_TO_DIR="./$PROJECT_NAME"
+PATH_TO_ORG="~/org/Projects/All/$PROJECT_NAME/${PROJECT_NAME}org"
 
 # Define path of org-file that shall be written into.
 # ─────────────────────────────────────────────────────────────────────────────
-FILE_NAME=~/org/Index.org
+FILE_NAME="~/org/Index.org"
 FILE_NAME=$(realpath $FILE_NAME)
 
 # Define text that shall be added to the org-file.
