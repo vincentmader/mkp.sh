@@ -15,8 +15,10 @@ if [[ "$PROJECT_NAME" != *"." ]]; then
     echo "Project name should end in \".\""
     exit
 fi
+
 # Create POSIX-compatible project id for directory name.
-PROJECT_ID=$(echo "$PROJECT_NAME" | awk '{print tolower($0)}') # -> Lowercase.
+# ─────────────────────────────────────────────────────────────────────────────
+PROJECT_ID=$(echo "$PROJECT_NAME" | awk '{print tolower($0)}') # -> Lowercase
 PROJECT_ID=$(echo "$PROJECT_ID" | sed 's/.$//')                # -> Remove dot.
 PROJECT_ID=$(echo "$PROJECT_ID" | tr " " "_")                  # -> No spaces.
 
