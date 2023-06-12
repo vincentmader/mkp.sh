@@ -36,7 +36,7 @@ FILE_NAME=$(realpath $FILE_NAME)
 # ─────────────────────────────────────────────────────────────────────────────
 LINK_1="[[$PATH_TO_DIR][.]]"
 LINK_2="[[$PATH_TO_ORG][o]]"
-NEW="** PROJ $LINK_1 $LINK_2 $PROJECT_NAME"
+NEW="** PROJ   $LINK_1 $LINK_2 $PROJECT_NAME"
 FROM="* \[\[~/org/0_inbox\]\[Inbox\]\]"
 TO="$FROM\\\n$NEW"
 FROM=$(echo "$FROM" | sed 's;/;\\/;g')
