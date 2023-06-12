@@ -1,0 +1,16 @@
+** `mkp` CLI tool
+
+This repo contains a small script I wrote to facilitate the creation of projects with org-mode in my Doom Emacs setup.
+
+A usage example is given here:
+#+begin_src
+mkp "Give a usage example for this script."
+#+end_src
+
+On execution, the following things will then be created:
+- A project directory `~/org/0_inbox/give_a_usage_example_for_this_script`.
+- A project org-file `~/org/0_inbox/give_a_usage_example_for_this_script/Give a usage example for this script.org`.
+- A project headline (with links to the above) in `~/org/Index.org`.
+
+TODOs for the future:
+- I probably will have to spend some time on appropriately handling special characters (e.g. backticks & apostrophes) in the project name.
