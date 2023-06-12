@@ -26,8 +26,10 @@ PROJECT_ID=$(echo "$PROJECT_ID" | tr " " "_")                  # -> No spaces.
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
-PATH_TO_DIR="$ORG_HOME/0_inbox/$PROJECT_ID"
-PATH_TO_ORG="$PATH_TO_DIR/${PROJECT_NAME}org"
+PATH_TO_DIR_IN_INBOX="$ORG_HOME/0_inbox/$PROJECT_ID"
+PATH_TO_DIR_IN_ALL="$ORG_HOME/A_All/$PROJECT_ID"
+PATH_TO_ORG_IN_INBOX="$PATH_TO_DIR_IN_INBOX/${PROJECT_NAME}org"
+PATH_TO_ORG_IN_ALL="$PATH_TO_DIR_IN_ALL/${PROJECT_NAME}org"
 
 # Define path of org-file that shall be written into.
 # ─────────────────────────────────────────────────────────────────────────────
@@ -36,8 +38,8 @@ FILE_NAME=$(realpath $FILE_NAME)
 
 # Define text that shall be added to the org-file.
 # ─────────────────────────────────────────────────────────────────────────────
-LINK_1="[[$PATH_TO_DIR][.]]"
-LINK_2="[[$PATH_TO_ORG][o]]"
+LINK_1="[[$PATH_TO_DIR_IN_ALL][.]]"
+LINK_2="[[$PATH_TO_ORG_IN_ALL][o]]"
 NEW="** PROJ   $LINK_1 $LINK_2 $PROJECT_NAME"
 FROM="* \[\[~/org/0_inbox\]\[Inbox\]\]"
 TO="$FROM\\\n$NEW"
@@ -52,17 +54,17 @@ echo "Wrote to org index."
 
 # Create project directory.
 # ─────────────────────────────────────────────────────────────────────────────
-if [ ! -d "$PATH_TO_DIR" ]; then
-    mkdir -p "$PATH_TO_DIR"
-    echo "Created directory at \`$PATH_TO_DIR\`"
+if [ ! -d "$PATH_TO_DIR_IN_INBOX" ]; then
+    mkdir -p "$PATH_TO_DIR_IN_INBOX"
+    echo "Created directory at \`$PATH_TO_DIR_IN_INBOX\`"
 fi
 
 # Create project org-file.
 # ─────────────────────────────────────────────────────────────────────────────
 TEMPLATE="#+title: $PROJECT_NAME"
-if [ ! -f "$PATH_TO_ORG" ]; then
-    echo "$TEMPLATE" > "$PATH_TO_ORG"
-    echo "Created org-file at \`$PATH_TO_ORG\`"
+if [ ! -f "$PATH_TO_ORG_IN_INBOX" ]; then
+    echo "$TEMPLATE" > "$PATH_TO_ORG_IN_INBOX"
+    echo "Created org-file at \`$PATH_TO_ORG_IN_INBOX\`"
 fi
 
 # Run `$ORG_HOME/Makefile` to auto-create symlinks & org-agenda config.
