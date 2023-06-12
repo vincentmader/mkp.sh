@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ORG_HOME="$HOME/org"
+
 # Make sure that exactly one argument is passed to this script. Else: Exit.
 # ─────────────────────────────────────────────────────────────────────────────
 nr_of_args_passed_to_this_script=$#
@@ -24,12 +26,12 @@ PROJECT_ID=$(echo "$PROJECT_ID" | tr " " "_")                  # -> No spaces.
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
-PATH_TO_DIR="$HOME/org/0_inbox/$PROJECT_ID"
+PATH_TO_DIR="$ORG_HOME/0_inbox/$PROJECT_ID"
 PATH_TO_ORG="$PATH_TO_DIR/${PROJECT_NAME}org"
 
 # Define path of org-file that shall be written into.
 # ─────────────────────────────────────────────────────────────────────────────
-FILE_NAME="$HOME/org/Index.org"
+FILE_NAME="$ORG_HOME/Index.org"
 FILE_NAME=$(realpath $FILE_NAME)
 
 # Define text that shall be added to the org-file.
@@ -61,4 +63,12 @@ TEMPLATE="#+title: $PROJECT_NAME"
 if [ ! -f "$PATH_TO_ORG" ]; then
     echo "$TEMPLATE" > "$PATH_TO_ORG"
     echo "Created org-file at \`$PATH_TO_ORG\`"
+fi
+
+# Run `$ORG_HOME/Makefile` to auto-create symlinks & org-agenda config.
+# ─────────────────────────────────────────────────────────────────────────────
+PATH_TO_ORG_MAKEFILE="$ORG_HOME/Makefile"
+if [ -f "$PATH_TO_ORG_MAKEFILE" ]; then
+    echo "Executing \`make org\`..."
+    cd "$ORG_HOME" && make org
 fi
