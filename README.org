@@ -4,12 +4,12 @@ This repo contains a small script I wrote to facilitate the creation of projects
 
 A usage example is given here:
 #+begin_src
-mkp "Give a usage example for this script."
+mkp "Demonstrate mkp usage."
 #+end_src
 
 On execution, the following things will then be created:
-- A project directory `~/org/0_inbox/give_a_usage_example_for_this_script`.
-- A project org-file `~/org/0_inbox/give_a_usage_example_for_this_script/Give a usage example for this script.org`.
+- A project directory `~/org/0_inbox/demonstrate_mkp_usage`.
+- A project org-file `~/org/0_inbox/demonstrate_mkp_usage/Demonstrate mkp usage.org`.
 - A project headline (with links to the above) in `~/org/Index.org`.
 
 TODOs for the future:
