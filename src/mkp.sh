@@ -61,7 +61,7 @@ fi
 
 # Create project org-file.
 # ─────────────────────────────────────────────────────────────────────────────
-TEMPLATE="#+title: $PROJECT_NAME"
+TEMPLATE="#+startup: show2levels latexpreview\n#+title: $PROJECT_NAME"
 if [ ! -f "$PATH_TO_ORG_IN_INBOX" ]; then
     echo "$TEMPLATE" > "$PATH_TO_ORG_IN_INBOX"
     echo "Created org-file at \`$PATH_TO_ORG_IN_INBOX\`"
