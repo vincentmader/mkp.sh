@@ -1,12 +1,19 @@
 #!/bin/sh
 
+cprint () {
+    path_to_script="$(realpath $0)"
+    path_to_dir="$(dirname $path_to_script)"
+    path_to_cprint="$path_to_dir/../tmp/colored-echo.sh/src/cprint.sh"
+    sh "$path_to_cprint" "$1" "$2"
+}
+
 ORG_HOME="$HOME/org"
 
 # Make sure that exactly one argument is passed to this script. Else: Exit.
 # ─────────────────────────────────────────────────────────────────────────────
 nr_of_args_passed_to_this_script=$#
 if [ $nr_of_args_passed_to_this_script -ne 1 ]; then
-    echo "Please specify exactly one argument to the \`mkp\` command, i.e. the name of the project."
+    cprint "Please specify exactly one argument to the \`mkp\` command, i.e. the name of the project." "red"
     exit
 fi
 
@@ -14,7 +21,7 @@ fi
 # ─────────────────────────────────────────────────────────────────────────────
 PROJECT_NAME="$1"
 if [[ "$PROJECT_NAME" != *"." ]]; then 
-    echo "Project name should end in \".\""
+    cprint "Project name should end in \".\"" "red"
     exit
 fi
 
@@ -50,13 +57,13 @@ PATTERN="s/$FROM/$TO/g"
 # Write to org-file.
 # ─────────────────────────────────────────────────────────────────────────────
 sed -i'' -e "$PATTERN" "$FILE_NAME"
-echo "Wrote to org index."
+cprint "Wrote to org index." "green"
 
 # Create project directory.
 # ─────────────────────────────────────────────────────────────────────────────
 if [ ! -d "$PATH_TO_DIR_IN_INBOX" ]; then
     mkdir -p "$PATH_TO_DIR_IN_INBOX"
-    echo "Created directory at \`$PATH_TO_DIR_IN_INBOX\`"
+    cprint "Created directory at \`$PATH_TO_DIR_IN_INBOX\`." "green"
 fi
 
 # Create project org-file.
@@ -64,13 +71,13 @@ fi
 TEMPLATE="#+startup: show2levels latexpreview\n#+title: $PROJECT_NAME"
 if [ ! -f "$PATH_TO_ORG_IN_INBOX" ]; then
     echo "$TEMPLATE" > "$PATH_TO_ORG_IN_INBOX"
-    echo "Created org-file at \`$PATH_TO_ORG_IN_INBOX\`"
+    cprint "Created org-file at \`$PATH_TO_ORG_IN_INBOX\`." "green"
 fi
 
 # Run `$ORG_HOME/Makefile` to auto-create symlinks & org-agenda config.
 # ─────────────────────────────────────────────────────────────────────────────
 PATH_TO_ORG_MAKEFILE="$ORG_HOME/Makefile"
 if [ -f "$PATH_TO_ORG_MAKEFILE" ]; then
-    echo "Executing \`make org\`..."
+    cprint "Executing \`make org\`..." "yellow"
     cd "$ORG_HOME" && make org
 fi
