@@ -33,7 +33,7 @@ PROJECT_ID=$(echo "$PROJECT_ID" | tr " " "_")                  # -> No spaces.
 
 # Define paths that shall be created for the project.
 # ─────────────────────────────────────────────────────────────────────────────
-PATH_TO_DIR_IN_INBOX="$ORG_HOME/0_inbox/$PROJECT_ID"
+PATH_TO_DIR_IN_INBOX="$ORG_HOME/inbox/$PROJECT_ID"
 PATH_TO_DIR_IN_ALL="$ORG_HOME/A_All/$PROJECT_ID"
 PATH_TO_ORG_IN_INBOX="$PATH_TO_DIR_IN_INBOX/${PROJECT_NAME}org"
 PATH_TO_ORG_IN_ALL="$PATH_TO_DIR_IN_ALL/${PROJECT_NAME}org"
@@ -48,7 +48,7 @@ FILE_NAME=$(realpath $FILE_NAME)
 LINK_1="[[$PATH_TO_DIR_IN_ALL][.]]"
 LINK_2="[[$PATH_TO_ORG_IN_ALL][o]]"
 NEW="** PROJ   $LINK_1 $LINK_2 $PROJECT_NAME"
-FROM="* \[\[~/org/0_inbox\]\[Inbox\]\]"
+FROM="* \[\[~/org/inbox\]\[Inbox\]\]"
 TO="$FROM\\\n$NEW"
 FROM=$(echo "$FROM" | sed 's;/;\\/;g')
 TO=$(echo "$TO" | sed 's;/;\\/;g')
