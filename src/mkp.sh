@@ -3,7 +3,7 @@
 cprint () {
     path_to_script="$(realpath $0)"
     path_to_dir="$(dirname $path_to_script)"
-    path_to_cprint="$path_to_dir/../tmp/colored-echo.sh/src/cprint.sh"
+    path_to_cprint="$path_to_dir/../lib/colored-echo.sh/src/cprint.sh"
     sh "$path_to_cprint" "$1" "$2"
 }
 
